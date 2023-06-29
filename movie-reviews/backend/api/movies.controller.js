@@ -1,6 +1,6 @@
 "use strict";
 
-import MoviesDAO from "../dao/moviesDAO";
+import MoviesDAO from "../dao/moviesDAO.js";
 
 export default class MoviesController {
 
