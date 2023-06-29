@@ -21,7 +21,7 @@ async function main() {
         await client.connect();
 
         //gets initial reference to collection and db
-        await MoviesDAO.injectDB(client)
+        await MoviesDAO.injectDB(client);
 
         app.listen(port, () => {
             console.log('server is running on port:' + port);
