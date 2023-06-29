@@ -26,7 +26,7 @@ export default class ReviewsDAO {
                 user_id: user._id,
                 date: date,
                 review: review,
-                movie_id: ObjectId(movieId)
+                movie_id: new ObjectId(movieId)
             }
             return await reviews.insertOne(reviewDoc)
         }
@@ -39,7 +39,7 @@ export default class ReviewsDAO {
     static async updateReview(reviewId, userId, review, date) {
         try {
             const updateResponse = await reviews.updateOne(
-                { user_id: userId, _id: ObjectId(reviewId) },
+                { user_id: userId, _id: new ObjectId(reviewId) },
                 { $set: { review: review, date: date } }
             )
             return updateResponse
@@ -53,7 +53,7 @@ export default class ReviewsDAO {
     static async deleteReview(reviewId, userId) {
         try {
             const deleteResponse = await reviews.deleteOne({
-                _id: ObjectId(reviewId),
+                _id: new ObjectId(reviewId),
                 user_id: userId,
             })
             return deleteResponse
@@ -64,5 +64,5 @@ export default class ReviewsDAO {
         }
     }
 
-    
+
 }
