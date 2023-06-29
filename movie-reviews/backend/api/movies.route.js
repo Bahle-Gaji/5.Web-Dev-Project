@@ -7,6 +7,8 @@ import ReviewsController from './reviews.controller.js';
 const router = express.Router() // get access to express router
 
 router.route('/').get(MoviesController.apiGetMovies);
+router.route("/id/:id").get(MoviesController.apiGetMovieById);      //List of movie ratings
+router.route("/ratings").get(MoviesController.apiGetRatings);      //List of movie ratings
 router
     .route('/review')
     .post(ReviewsController.apiPostReview)
