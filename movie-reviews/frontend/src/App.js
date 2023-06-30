@@ -3,7 +3,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Movie from './components/movie';
-import Movieslist from './components/movies-list';
+import MoviesList from './components/movies-list';
 import Login from './components/login';
 import AddReview from './components/add-review';
 import { Nav, Navbar } from 'react-bootstrap';
@@ -36,6 +36,14 @@ function App() {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
+
+      <Routes>
+        <Route exact path='/' element={<MoviesList/>}></Route>
+        <Route path="/movies" element={<MoviesList/>}></Route>
+        <Route path="/movies/:id/review" render={(props) => <AddReview {...props} user={user} />}></Route>
+        <Route path="/movies/:id/" render={(props) => <Movie {...props} user={user} />}></Route>
+        <Route path="/login" render={(props) => <Login {...props} login={login} />}></Route>
+      </Routes>
     </div>
   );
 }
