@@ -7,8 +7,19 @@ import Movieslist from './components/movies-list';
 import Login from './components/login';
 import AddReview from './components/add-review';
 import { Nav, Navbar } from 'react-bootstrap';
+import { useState } from 'react';
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  async function login(user = null) {
+    setUser(user)
+  }
+
+  async function logout() {
+    setUser(null)
+  }
+
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
@@ -19,7 +30,7 @@ function App() {
             <Nav.Link><Link to={"/movies"}>Movies</Link></Nav.Link>
             <Nav.Link>
               {
-                false ? (<a>Logout User</a>) : (<Link to={'/login'}>Login</Link>)
+                user ? (<a onClick={logout}>Logout User</a>) : (<Link to={'/login'}>Login</Link>)
               }
             </Nav.Link>
           </Nav>
