@@ -107,7 +107,7 @@ const MoviesList = (props) => {
                                         Rating: {movie.rated}
                                     </Card.Text>
                                     <Card.Text>{movie.plot}</Card.Text>
-                                    <Link to={'/movies'+movie._id}>View Reviews</Link>
+                                    <Link to={'/movies/'+movie._id}>View Reviews</Link>
                                 </Card.Body>
                             </Card>
                             </Col>
