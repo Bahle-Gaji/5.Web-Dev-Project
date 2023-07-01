@@ -34,6 +34,17 @@ const MoviesList = (props) => {
             .catch(e => console.log(e))
     }
 
+    const onChangeSearchTitle = e => {
+        const searchTitle = e.target.value
+        setSearchTitle(searchTitle)
+    }
+
+    const onChangeSearchRating = e => {
+        const searchRating = e.target.value
+        setSearchRating(searchRating)
+    }
+
+    
     return (
         <div className="App">
             Movies List
