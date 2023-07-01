@@ -1,9 +1,57 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import MovieDataService from '../services/movies';
+import { Link, useParams } from 'react-router-dom';
+import { Card, Container, Image, Col, Row, Button, Media } from "react-bootstrap";
 
-export default function Movie() {
+const Movie = (props) => {
+    
+
+    const [movie, setMovie] = useState({
+        id: null,
+        title: '',
+        rated: '',
+        reviews: []
+    })
+
+    const getMovie = id => {
+        MovieDataService.get(id)
+            .then(res => {
+                console.log(res.data)
+                setMovie(res.data)
+            })
+            .catch(e => console.log(e))
+    }
+
+    let {id} = useParams();
+
+    useEffect(() => {
+        getMovie(id)
+    }, [id])
+
     return (
-        <div className="App">
-            Movie
+        <div>
+            <Container>
+                <Row>
+                    <Col>
+                        <Image src={movie.poster + "/100px250"} fluid />
+                    </Col>
+                    <Col>
+                        <Card>
+                            <Card.Header as="h5">{movie.title}</Card.Header>
+                            <Card.Body>
+                                <Card.Text>
+                                    {movie.plot}
+                                </Card.Text>
+                                {props.user && <Link to={"/movies/" + id + "/review"}>Add Review</Link>}
+                            </Card.Body>
+                        </Card>
+                        <br></br>
+                        <h2>Reviews</h2>
+                    </Col>
+                </Row>
+            </Container>
         </div>
     )
 }
+
+export default Movie;
