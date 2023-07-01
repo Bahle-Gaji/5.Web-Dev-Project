@@ -1,9 +1,64 @@
-import React from "react";
+import { React, useState } from "react";
+import MovieDataService from '../services/movies';
+import { Link, useParams } from 'react-router-dom';
+import { Form, Button } from 'react-bootstrap';
 
-export default function AddReview() {
+const AddReview = (props) => {
+    const { id } = useParams();
+
+    let editing = false;
+    let initialReviewState = '';
+
+    const [review, setReview] = useState(initialReviewState);
+    //keeps track if review is submitted
+    const [submitted, setSubmitted] = useState(false);
+
+    const onChangeReview = e => {
+        const review = e.target.value
+        setReview(review)
+    }
+
+    const saveReview = () => {
+        var data = {
+            review: review,
+            name: props.user.name,
+            user_id: props.user.id,
+            movie_id: id
+        }
+
+        MovieDataService.createReview(data)
+            .then(res => setSubmitted(true))
+            .catch(e => console.log(e))
+    }
+
     return (
-        <div className="App">
-            Add Review
+        <div>
+            {submitted ?
+                (
+                    <div>
+                        <h4>Review submitted successfully</h4>
+                        <Link to={'/movies/' + id}>Back to movie</Link>
+                    </div>
+                )
+                :
+                (
+                    <Form>
+                        <Form.Group>
+                            <Form.Label>{editing ? 'Edit' : "Create"} Review</Form.Label>
+                            <Form.Control
+                            type='text'
+                            required
+                            value={review}
+                            onChange={onChangeReview}
+                            />
+                            <Button variant="primary" onClick={saveReview}>
+                                Submit
+                            </Button>
+                        </Form.Group>
+                    </Form>
+                )}
         </div>
     )
 }
+
+export default AddReview;
