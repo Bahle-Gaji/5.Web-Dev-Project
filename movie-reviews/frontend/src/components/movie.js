@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { Card, Container, Image, Col, Row, Button, Media } from "react-bootstrap";
 
 const Movie = (props) => {
-    
+
 
     const [movie, setMovie] = useState({
         id: null,
@@ -22,7 +22,7 @@ const Movie = (props) => {
             .catch(e => console.log(e))
     }
 
-    let {id} = useParams();
+    let { id } = useParams();
 
     useEffect(() => {
         getMovie(id)
@@ -46,7 +46,28 @@ const Movie = (props) => {
                             </Card.Body>
                         </Card>
                         <br></br>
+
                         <h2>Reviews</h2>
+                        <br></br>
+
+                        {movie.reviews.map((review, index) => {
+                            return (
+                                <Card key={index}>
+                                    <Card.Body>
+                                        <h5>{review.name + " reviewed on " + review.date}</h5>
+                                        <p>{review.review}</p>
+                                        {props.user && props.user.id === review.user_id &&
+                                            <Row>
+                                                <Col>
+                                                <Link to={{ pathname: "/movies/" + id +"/review", state: { currentReview: review }}}>Edit</Link>
+                                                </Col>
+                                                <Col><Button variant="link">Delete</Button></Col>
+                                            </Row>
+                                        }
+                                    </Card.Body>
+                                </Card>
+                            )
+                        })}
                     </Col>
                 </Row>
             </Container>
