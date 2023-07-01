@@ -10,7 +10,7 @@ import { Nav, Navbar } from 'react-bootstrap';
 import { useState } from 'react';
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(true);
 
   async function login(user = null) {
     setUser(user)
