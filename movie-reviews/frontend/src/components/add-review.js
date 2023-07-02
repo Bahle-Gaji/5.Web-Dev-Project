@@ -1,13 +1,19 @@
-import { React, useState } from "react";
+import React, { useState } from "react";
 import MovieDataService from '../services/movies';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useLocation } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 
 const AddReview = (props) => {
+    const location = useLocation();
     const { id } = useParams();
 
     let editing = false;
     let initialReviewState = '';
+
+    if (location.state && location.state.currentReview) {
+        editing = true
+        initialReviewState = location.state.currentReview.review
+    }
 
     const [review, setReview] = useState(initialReviewState);
     //keeps track if review is submitted
@@ -26,9 +32,24 @@ const AddReview = (props) => {
             movie_id: id
         }
 
-        MovieDataService.createReview(data)
-            .then(res => setSubmitted(true))
-            .catch(e => console.log(e))
+
+        if (editing) {
+            data.review_id = location.state.currentReview._id
+            MovieDataService.updateReview(data)
+                .then(res => {
+                    console.log("here")
+                    setSubmitted(true);
+                    console.log(res.data)
+                })
+                .catch(e => {
+                    console.log('error here')
+                    console.log(e)})
+        }
+        else {
+            MovieDataService.createReview(data)
+                .then(res => setSubmitted(true))
+                .catch(e => console.log(e))
+        }
     }
 
     return (
@@ -46,10 +67,10 @@ const AddReview = (props) => {
                         <Form.Group>
                             <Form.Label>{editing ? 'Edit' : "Create"} Review</Form.Label>
                             <Form.Control
-                            type='text'
-                            required
-                            value={review}
-                            onChange={onChangeReview}
+                                type='text'
+                                required
+                                value={review}
+                                onChange={onChangeReview}
                             />
                             <Button variant="primary" onClick={saveReview}>
                                 Submit
