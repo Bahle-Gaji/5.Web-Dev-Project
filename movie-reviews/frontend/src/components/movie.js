@@ -6,7 +6,6 @@ import moment from 'moment';
 
 const Movie = (props) => {
 
-
     const [movie, setMovie] = useState({
         id: null,
         title: '',
@@ -60,7 +59,7 @@ const Movie = (props) => {
                                         {props.user && props.user.id === review.user_id &&
                                             <Row>
                                                 <Col>
-                                                <Link to={{ pathname: "/movies/" + id +"/review", state: { currentReview: review }}}>Edit</Link>
+                                                <Link to={"/movies/" + id +"/review"} state={ {currentReview: review }}>Edit</Link>
                                                 </Col>
                                                 <Col><Button variant="link">Delete</Button></Col>
                                             </Row>
