@@ -4,21 +4,31 @@ import { Link } from 'react-router-dom';
 import { Form, Button, Col, Row, Container, Card } from 'react-bootstrap';
 
 const MoviesList = (props) => {
+
     const [movies, setMovies] = useState([])
     const [searchTitle, setSearchTitle] = useState("")
     const [searchRating, setSearchRating] = useState("")
     const [ratings, setRatings] = useState(["All Ratings"])
+
+    const [currentPage, setCurrentPage] = useState(0)
+    const [entriesPerPage, setEntriesPerPage] = useState(0)
 
     useEffect(() => {
         retrieveMovies()
         retrieveRatings()
     }, [])
 
+    useEffect(() => {
+        retrieveMovies()
+    }, [currentPage])
+
     const retrieveMovies = () => {
-        MoviesDataService.getAll()
+        MoviesDataService.getAll(currentPage)
             .then(res => {
                 console.log(res.data)
                 setMovies(res.data.movies)
+                setCurrentPage(res.data.page);
+                setEntriesPerPage(res.data.entries_per_page)
             })
             .catch(e =>
                 console.log(e)
@@ -48,11 +58,11 @@ const MoviesList = (props) => {
 
     const find = (query, by) => {
         MoviesDataService.find(query, by)
-        .then(res => {
-            console.log(res.data)
-            setMovies(res.data.movies)
-        })
-        .catch(e => console.log(e))
+            .then(res => {
+                console.log(res.data)
+                setMovies(res.data.movies)
+            })
+            .catch(e => console.log(e))
     }
 
     const findByTitle = () => {
@@ -60,10 +70,10 @@ const MoviesList = (props) => {
     }
 
     const findByRating = () => {
-        if(searchRating === "All Ratings"){
+        if (searchRating === "All Ratings") {
             retrieveMovies()
         }
-        else{
+        else {
             find(searchRating, 'rated')
         }
     }
@@ -99,21 +109,29 @@ const MoviesList = (props) => {
                     {movies.map(movie => {
                         return (
                             <Col>
-                            <Card style={{width: '18rem'}}>
-                                <Card.Img src={movie.poster+"/100px180"}/>
-                                <Card.Body>
-                                    <Card.Title>{movie.title}</Card.Title>
-                                    <Card.Text>
-                                        Rating: {movie.rated}
-                                    </Card.Text>
-                                    <Card.Text>{movie.plot}</Card.Text>
-                                    <Link to={'/movies/'+movie._id}>View Reviews</Link>
-                                </Card.Body>
-                            </Card>
+                                <Card style={{ width: '18rem' }}>
+                                    <Card.Img src={movie.poster + "/100px180"} />
+                                    <Card.Body>
+                                        <Card.Title>{movie.title}</Card.Title>
+                                        <Card.Text>
+                                            Rating: {movie.rated}
+                                        </Card.Text>
+                                        <Card.Text>{movie.plot}</Card.Text>
+                                        <Link to={'/movies/' + movie._id}>View Reviews</Link>
+                                    </Card.Body>
+                                </Card>
                             </Col>
                         )
                     })}
                 </Row>
+                <br />
+                Showing page: {currentPage}.
+                <Button
+                    variant="link"
+                    onClick={() => { setCurrentPage(currentPage + 1) }}
+                >
+                    Get next {entriesPerPage} results
+                </Button>
             </Container>
         </div>
     )
