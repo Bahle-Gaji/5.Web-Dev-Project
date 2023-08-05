@@ -48,10 +48,14 @@ font-weight: bold;
 
 const Right = styled.div`
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 `;
 const MenuItem = styled.div`
   font-size: 14px;
   cursor: pointer;
+  margin-left: 25px;
 `;
 
 
@@ -63,7 +67,7 @@ const Navbar = () => {
           <Language>EN</Language>
           <SearchContainer>
             <Input></Input>
-            <SearchIcon></SearchIcon>
+            <SearchIcon style={{color: "gray", fontSize: "16px"}}></SearchIcon>
           </SearchContainer>
         </Left>
 
@@ -75,7 +79,7 @@ const Navbar = () => {
           <MenuItem>REGISTER</MenuItem>
           <MenuItem>SIGN IN</MenuItem>
           <MenuItem>
-            <Badge badgeContent={4} color="primary">
+            <Badge badgeContent={1} color="primary">
               <ShoppingCartOutlinedIcon color="action" />
             </Badge>
           </MenuItem>
