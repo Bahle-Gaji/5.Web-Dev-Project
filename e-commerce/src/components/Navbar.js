@@ -1,7 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Badge, MailIcon, Search } from '@mui/icons-material';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import Badge from '@mui/material/Badge';
+import {
+  Search as SearchIcon,
+  Mail as MailIcon,
+  ShoppingCartOutlined as ShoppingCartOutlinedIcon
+} from "@mui/icons-material";
+
 
 const Container = styled.div`
   height: 60px;
@@ -49,6 +54,7 @@ const MenuItem = styled.div`
   cursor: pointer;
 `;
 
+
 const Navbar = () => {
   return (
     <Container>
@@ -57,7 +63,7 @@ const Navbar = () => {
           <Language>EN</Language>
           <SearchContainer>
             <Input></Input>
-            <Search></Search>
+            <SearchIcon></SearchIcon>
           </SearchContainer>
         </Left>
 
