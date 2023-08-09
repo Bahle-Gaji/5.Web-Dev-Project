@@ -72,7 +72,7 @@ const Navbar = () => {
         </Left>
 
         <Center>
-          <Logo>Bahle.</Logo>
+          <Logo>B.G.E.</Logo>
         </Center>
 
         <Right>
