@@ -27,6 +27,32 @@ const Arrow = styled.div`
     left: ${props => props.direction === "left" && "10px"};
     right: ${props => props.direction === "right" && "10px"};
     margin: auto;
+    cursor: pointer;
+    opacity: 0.5;
+`;
+
+const Wrapper = styled.div`
+    height: 100%;
+
+`;
+
+const Slide = styled.div`
+    display: flex;
+    align-items: center;
+    
+`;
+
+const ImgContainer = styled.div`
+    flex: 1;
+    
+`;
+
+const Image = styled.img`
+
+`;
+
+const InfoContainer = styled.div`
+    flex: 1;
 `;
 
 const Slider = () => {
@@ -36,6 +62,12 @@ const Slider = () => {
                 <Arrow direction="left">
                     <ArrowLeftOutlinedIcon />
                 </Arrow>
+                <Wrapper>
+                    <ImgContainer>
+                        <Image src="https://i.ibb.co/XsdmR2c/1.png"/>
+                    </ImgContainer>
+                    <InfoContainer></InfoContainer>
+                </Wrapper>
                 <Arrow direction="right">
                     <ArrowRightOutlinedIcon />
                 </Arrow>
