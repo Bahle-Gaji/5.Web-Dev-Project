@@ -7,8 +7,9 @@ import {
 
 const Container = styled.div`
     width: 100%;
-    height: 1100vh;
+    height: 100vh;
     display: flex;
+    position: relative;
 
 `;
 
@@ -20,20 +21,24 @@ const Arrow = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-`
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: ${props => props.direction === "left" && "10px"};
+    right: ${props => props.direction === "right" && "10px"};
+    margin: auto;
+`;
 
 const Slider = () => {
     return (
         <div>
             <Container>
-                <Arrow>
+                <Arrow direction="left">
                     <ArrowLeftOutlinedIcon />
                 </Arrow>
-                <Arrow>
+                <Arrow direction="right">
                     <ArrowRightOutlinedIcon />
                 </Arrow>
-
-
             </Container>
         </div>
     )
